@@ -1,0 +1,86 @@
+import React from 'react';
+import { ArrowLeft, Bell, Search, UserCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Button } from './button';
+import { Badge } from './badge';
+
+interface TopNavigationProps {
+  title: string;
+  showBack?: boolean;
+  showSearch?: boolean;
+  showNotifications?: boolean;
+  notificationCount?: number;
+  showProfile?: boolean;
+}
+
+export const TopNavigation: React.FC<TopNavigationProps> = ({
+  title,
+  showBack = false,
+  showSearch = false,
+  showNotifications = false,
+  notificationCount = 0,
+  showProfile = true,
+}) => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex items-center justify-between p-4 bg-white border-b border-gray-200">
+      <div className="flex items-center space-x-3">
+        {showBack && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate(-1)}
+          >
+            <ArrowLeft className="h-5 w-5" />
+          </Button>
+        )}
+        <h1 className="text-lg font-semibold text-gray-900">{title}</h1>
+      </div>
+      
+      <div className="flex items-center space-x-2">
+        {showSearch && (
+          <Button variant="ghost" size="sm">
+            <Search className="h-5 w-5" />
+          </Button>
+        )}
+        {showNotifications && (
+          <Button variant="ghost" size="sm" className="relative">
+            <Bell className="h-5 w-5" />
+            {notificationCount > 0 && (
+              <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 text-xs">
+                {notificationCount}
+              </Badge>
+            )}
+          </Button>
+        )}
+        {showProfile && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate('/profile')}
+            className="relative"
+          >
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <UserCircle className="h-6 w-6" />
+            </div>
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+            size="sm"
+            onClick={() => navigate('/profile')}
+            className="relative"
+          >
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <span className="text-sm">👤</span>
+            </div>
+              </Badge>
+            )}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
